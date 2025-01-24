@@ -4,8 +4,9 @@ import React, { useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from './ui/button'
+import axios from 'axios'
 
-const CommentDialog = ({open, setOpen}) => {
+const CommentDialog = ({open,setOpen}) => {
   const [text, setText] = useState("");
   
   const changeEventHandler = (e) => {
@@ -19,7 +20,7 @@ const CommentDialog = ({open, setOpen}) => {
   const sendMessageHandler = async () => {
 
     try {
-      const res = await axios.post(`https://instaclone-g9h5.onrender.com/api/v1/post/${selectedPost?._id}/comment`, { text }, {
+      const res = await axios.post(`http://localhost:8000/api/v1/post/${selectedPost?._id}/comment`, { text }, {
         headers: {
           'Content-Type': 'application/json'
         },

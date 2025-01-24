@@ -50,13 +50,13 @@ export const addNewPost = async (req, res) => {
 export const getAllPost = async (req, res) => {
     try {
         const posts = await Post.find().sort({ createdAt: -1 })
-            .populate({ path: 'author', select: 'username, profilePicture' })
+            .populate({ path: 'author', select: 'username profilePicture' })
             .populate({
                 path: 'comments',
                 sort: { createdAt: -1 },
                 populate: {
                     path: 'author',
-                    select: 'username, profilePicture'
+                    select: 'username profilePicture'
                 }
             });
         return res.status(200).json({
@@ -72,13 +72,13 @@ export const getUserPost = async (req, res) => {
         const authorId = req.id;
         const posts = await Post.find({ author: authorId }).sort({ createdAt: -1 }).populate({
             path: 'author',
-            select: 'username, profilePicture'
+            select: 'username profilePicture'
         }).populate({
             path: 'comments',
             sort: { createdAt: -1 },
             populate: {
                 path: 'author',
-                select: 'username, profilePicture'
+                select: 'username profilePicture'
             }
         });
         return res.status(200).json({
@@ -173,7 +173,7 @@ export const addComment = async (req,res) =>{
 
         await comment.populate({
             path:'author',
-            select:"username, profilePicture"
+            select:"username profilePicture"
         });
         
         post.comments.push(comment._id);
@@ -193,7 +193,7 @@ export const getCommentsOfPost = async (req,res) => {
     try {
         const postId = req.params.id;
 
-        const comments = await Comment.find({post:postId}).populate('author', 'username, profilePicture');
+        const comments = await Comment.find({post:postId}).populate('author', 'username profilePicture');
 
         if(!comments) return res.status(404).json({message:'No comments found for this post', success:false});
 
