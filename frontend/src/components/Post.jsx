@@ -8,7 +8,8 @@ import CommentDialog from './CommentDialog'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'sonner'
 import axios from 'axios'
-import { setPosts } from '@/redux/postSlice'
+import { setPosts, setSelectedPost } from '@/redux/postSlice'
+import { Badge } from './ui/badge'
 
 
 const Post = ({ post }) => {
@@ -114,7 +115,10 @@ const Post = ({ post }) => {
                         <AvatarImage src={post.author?.profilePicture} alt="post_image" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
-                    <h1>{[post.author?.username]}</h1>
+                    <div className='flex items-center gap-3'>
+                        <h1>{post.author?.username}</h1>
+                       {user?._id === post.author._id &&  <Badge variant="secondary">Author</Badge>}
+                    </div>
                 </div>
                 <Dialog>
                     <DialogTrigger asChild>
@@ -142,7 +146,10 @@ const Post = ({ post }) => {
                 {
                     liked ? <FaHeart onClick={likeOrDislikeHandler} size={'24'} className='cursor-pointer text-red-600' /> : <FaRegHeart onClick={likeOrDislikeHandler} size={'22px'} className='cursor-pointer hover:text-gray-600' />
                 }
-                    <MessageCircle onClick={()=>setOpen(true)} className='cursor-pointer hover:text-gray-600' />
+                    <MessageCircle onClick={()=>{
+                        dispatch(setSelectedPost(post))
+                        setOpen(true)
+                    } } className='cursor-pointer hover:text-gray-600' />
                     <Send className='cursor-pointer hover:text-gray-600' />
                 </div>
                 <Bookmark className='cursor-pointer hover:text-gray-600' />
@@ -152,7 +159,14 @@ const Post = ({ post }) => {
                 <span className='font-medium mr-2'>{post.author.username}</span>
                 {post.caption}
             </p>
-            <span onClick={()=>setOpen(true)} className='cursor-pointer text-sm text-gray-400'>View all {comment.length} comments</span>
+            {
+                comment.length > 0 && (
+                    <span onClick={() => {
+                        dispatch(setSelectedPost(post));
+                        setOpen(true);
+                    }} className='cursor-pointer text-sm text-gray-400'>View all {comment.length} comments</span>
+                )
+            }
             <CommentDialog open={open} setOpen={setOpen} />
             <div className='flex items-center justify-between'>
                 <input

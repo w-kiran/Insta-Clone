@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import store from '../redux/store'
 import { setAuthUser } from '@/redux/authSlice'
 import CreatePost from './CreatePost'
+import { setPosts, setSelectedPost } from '@/redux/postSlice'
 
 const LeftSidebar = () => {
 
@@ -20,9 +21,11 @@ const LeftSidebar = () => {
         try {
             const res = await axios.get("http://localhost:8000/api/v1/user/logout", {withCredentials:true})
             if (res.data.success) {
-                dispatch(setAuthUser(null))
-                navigate("/login")
-                toast.success(res.data.message)
+                dispatch(setAuthUser(null));
+                dispatch(setSelectedPost(null));
+                dispatch(setPosts([]));
+                navigate("/login");
+                toast.success(res.data.message);
             }
         } catch (error) {
             toast.error(error.response.data.message)
@@ -34,6 +37,10 @@ const LeftSidebar = () => {
             logoutHandler()
         }else if (textType === "Create") {
            setOpen(true)
+        }else if (textType === "Profile") {
+           navigate(`/profile/${user?._id}`)
+        }else if(textType === "Home") {
+           navigate("/")
         }
     }
 
@@ -76,5 +83,4 @@ const LeftSidebar = () => {
         </div>
     )
 }
-
-            export default LeftSidebar
+export default LeftSidebar
