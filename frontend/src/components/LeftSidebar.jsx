@@ -44,7 +44,7 @@ const LeftSidebar = () => {
             navigate(`/profile/${user?._id}`)
         } else if (textType === "Home") {
             navigate("/")
-        } else if (textType === "MessageCircle") {
+        } else if (textType === "Messages") {
             navigate("/chat")
         }
     }
@@ -53,7 +53,7 @@ const LeftSidebar = () => {
         { icon: <Home />, text: "Home" },
         { icon: <Search />, text: "Search" },
         { icon: <TrendingUp />, text: "TrendingUp" },
-        { icon: <MessageCircle />, text: "MessageCircle" },
+        { icon: <MessageCircle />, text: "Messages" },
         { icon: <Heart />, text: "Notifications" },
         { icon: <PlusSquare />, text: "Create" },
         {

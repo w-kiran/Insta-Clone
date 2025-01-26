@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const Signup = () => {
     const [input, setInput] = useState({
@@ -14,6 +14,7 @@ const Signup = () => {
         password: ""
     });
     const [loading, setLoading] = useState(false);
+    const {user} = useSelector(store=>store.auth)
     const navigate =useNavigate()
 
     const changeEventHandler = (e) => {
@@ -45,6 +46,12 @@ const Signup = () => {
             setLoading(false)
         }
     }
+
+    useEffect(()=>{
+            if(user){
+                navigate("/")
+            }
+        })
     return (
         <div className='flex items-center w-screen h-screen justify-center'>
             <form onSubmit={signupHandler} className='shadow-lg flex flex-col gap-5 p-8'>

@@ -8,9 +8,11 @@ import postRoute from "./routes/post.route.js"
 import messageRoute from "./routes/message.route.js"
 import { app,server } from "./socket/socket.js";
 
+
 dotenv.config({});
 
 const PORT = process.env.PORT || 3000;
+
 app.get("/", (req,res) =>{
     return res.status(200).json({
         message:"I'm coming from backend",
@@ -21,6 +23,7 @@ app.get("/", (req,res) =>{
 app.use(express.json());
 app.use(cookieParser());
 app.use(urlencoded({extended: true}));
+
 
 const corsOptions = {
     origin: process.env.URL,

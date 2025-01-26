@@ -96,16 +96,16 @@ const Post = ({ post }) => {
         }
     }
 
-    // const bookmarkHandler = async () => {
-    //     try {
-    //         const res = await axios.get(`https://instaclone-g9h5.onrender.com/api/v1/post/${post?._id}/bookmark`, {withCredentials:true});
-    //         if(res.data.success){
-    //             toast.success(res.data.message);
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
+    const bookmarkHandler = async () => {
+        try {
+            const res = await axios.get(`http://localhost:8000/api/v1/post/${post?._id}/bookmark`, {withCredentials:true});
+            if(res.data.success){
+                toast.success(res.data.message);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
     
     return (
         <div className='my-8 w-full max-w-sm mx-auto'>
@@ -152,7 +152,7 @@ const Post = ({ post }) => {
                     } } className='cursor-pointer hover:text-gray-600' />
                     <Send className='cursor-pointer hover:text-gray-600' />
                 </div>
-                <Bookmark className='cursor-pointer hover:text-gray-600' />
+                <Bookmark onClick={bookmarkHandler} className='cursor-pointer hover:text-gray-600' />
             </div>
             <span className='font-medium block mb-2'>{postLike}</span>
             <p>
