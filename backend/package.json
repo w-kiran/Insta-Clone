@@ -4,7 +4,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+<<<<<<< HEAD
     "start": "node index.js"
+=======
+    "dev": "nodemon index.js"
+>>>>>>> f93c8094cbef8fb3485cdd9f8527170b7962dcfd
   },
   "keywords": [],
   "author": "",
