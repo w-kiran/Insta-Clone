@@ -7,6 +7,8 @@ import { Textarea } from './ui/textarea'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 import { Loader2 } from 'lucide-react'
 import axios from 'axios'
+import { toast } from 'sonner'
+import { setAuthUser } from '@/redux/authSlice'
 
 const EditProfile = () => {
     const imageRef = useRef()
