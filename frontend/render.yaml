@@ -1,0 +1,6 @@
+static:
+  publish_path: build
+  redirects:
+    - source: /*
+      destination: /index.html
+      status: 200
